@@ -6,6 +6,7 @@ Aquesta és una versió del DIEC2, utilitzable a Kindle. Està feta a partir de 
 2) Executa el codi _ordenar_diccionari.py_. Això crearà un fitxer morfologia.csv, amb tota la flexió nominal i verbal, i apòstrofs perquè el diccionari ho pugui reconèixer.
 3) Executa el codi _partir_content.py_. Això crearà una carpeta nova anomenada parts_html i hi partirà el fitxer content.html en 300 parts, ja que Kindle Previewer no pot processar els fitxers grans.
 4) Executa el codi _derivar_parts.py_. Això comprovarà si les entrades del diccionari coincideixen amb les paraules arrel del fitxer morfologia.csv i en cas afirmatiu, afegirà tota la morfologia necessària a cada paraula que apareix al diccionari, perquè Kindle ho pugui reconèixer.
+5) Obre el fitxer dicc.opf des del Kindle Previewer 3. Quan tingui tots els document html processats, exporta el contingut en un fitxer.mobi; aquest fitxer és el que s'ha de copiar a la carpeta _Diccionaris_ de Kindle.
 
 Cal tindre el compte que els meus coneixements de programació són pràcticament nuls. Tot el codi ha estat escrit mitjançant IA. La meua feina, a base d'assaig error, ha consistit en ajustar-lo simplificant i ajustant al màxim les demandes al programador. El diccionari inclou algunes apostrofacions no utilitzades en català, de manera que hi ha cert marge per ajustar-lo.  
 
