@@ -33,19 +33,19 @@ def process_text_to_csv(input_file, output_file):
             return f"d'{word}"
         return None
 
-    # Funció per afegir "m'", "t'", "s'" a verbs flexionats
+    # Funció per afegir "m'", "t'", "s'", "n'" a verbs flexionats
     def add_pronoun_apostrophes(word):
         if word[0] in 'aeiouhAEIOUH':
-            return [f"m'{word}", f"t'{word}", f"s'{word}"]
+            return [f"m'{word}", f"t'{word}", f"s'{word}", f"n'{word}"]
         return []
 
-    # Funció per afegir "'m", "'t", "'l", "'s" a verbs que acaben en vocal
+    # Funció per afegir "'m", "'t", "'l", "'s", "'n" a verbs que acaben en vocal
     def add_suffix_apostrophes(word):
         # Comprovem si la paraula acaba en "-eu" i la tractem com si acabés en consonant
         if word.endswith('eu'):
-            return []  # No afegim sufixos com "'m", "'t", "'l", "'s" a paraules que acaben en -eu
-        if word[-1] in 'aeiouAEIOU':
-            return [f"{word}'m", f"{word}'t", f"{word}'l", f"{word}'s"]
+            return []  # No afegim sufixos com "'m", "'t", "'l", "'s", "'n" a paraules que acaben en -eu
+        if word[-1] in 'aeiouAEIOU':  # Si acaba en vocal
+            return [f"{word}'m", f"{word}'t", f"{word}'l", f"{word}'s", f"{word}'n"]
         return []
 
     # Escriu al fitxer de sortida
@@ -63,11 +63,11 @@ def process_text_to_csv(input_file, output_file):
             if len(derived_list) > 10:
                 derived_set.update(filter(None, [add_d_apostrophe(word) for word in derived_list]))
 
-                # Aplica "m'", "t'", "s'" a formes verbals flexionades
+                # Aplica "m'", "t'", "s'", "n'" a formes verbals flexionades
                 for word in derived_list:
                     derived_set.update(add_pronoun_apostrophes(word))
 
-                # Aplica "'m", "'t", "'l", "'s" a verbs que acaben en vocal
+                # Aplica "'m", "'t", "'l", "'s", "'n" a verbs que acaben en vocal
                 for word in derived_list:
                     derived_set.update(add_suffix_apostrophes(word))
 
