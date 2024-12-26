@@ -2,27 +2,6 @@ import os
 import csv
 from bs4 import BeautifulSoup
 
-# Funció per afegir articles l' i d' per paraules que comencen per vocals o h
-def afegir_articles(paraules):
-    noves_flexions = set()  # Utilitzem un conjunt per evitar duplicats
-    vocals_i_h = "aeiouhàèéíïòóúüAEIOUH"
-    for paraula in paraules:
-        if paraula and paraula[0] in vocals_i_h:
-            noves_flexions.add(f"l'{paraula}")
-            noves_flexions.add(f"d'{paraula}")
-    return list(noves_flexions)
-
-# Funció per afegir m', t', s' només a verbs que comencen per vocals o h
-def afegir_pronoms(paraules):
-    noves_flexions = set()  # Utilitzem un conjunt per evitar duplicats
-    vocals_i_h = "aeiouhàèéíïòóúüAEIOUH"
-    for paraula in paraules:
-        if paraula and paraula[0] in vocals_i_h:
-            noves_flexions.add(f"m'{paraula}")
-            noves_flexions.add(f"t'{paraula}")
-            noves_flexions.add(f"s'{paraula}")
-    return list(noves_flexions)
-
 # Funció per processar un fitxer HTML i actualitzar-lo
 def processa_html(html_path, arrels_flexions):
     with open(html_path, "r", encoding="utf-8") as f:
@@ -31,12 +10,6 @@ def processa_html(html_path, arrels_flexions):
     # Cerca les entrades amb <idx:orth>
     for idx_orth in soup.find_all("idx:orth"):
         paraula = idx_orth.text.strip()
-        es_verb = False
-
-        # Verifica si la paraula té un verb associat en un element <em class="v">
-        verb = idx_orth.find_previous("em", class_="v")
-        if verb:
-            es_verb = True
 
         if paraula in arrels_flexions:
             # Crea el bloc <idx:infl> si no existeix
@@ -48,13 +21,6 @@ def processa_html(html_path, arrels_flexions):
 
             # Afegeix les flexions al bloc <idx:infl>
             flexions = arrels_flexions[paraula]
-
-            if es_verb:
-                # Per als verbs, afegim també les formes m', t', s' si comencen per vocals o h
-                flexions += afegir_pronoms(flexions)
-
-            # Per a altres paraules, afegim només l' i d' si comencen per vocals o h
-            flexions += afegir_articles(flexions)
 
             # Elimina duplicats i assegura que les formes no inclouen l'entrada original
             flexions = list(set(flexions) - {paraula})
