@@ -21,22 +21,10 @@ def process_text_to_csv(input_file, output_file):
             if derived != root:  # Evita duplicar l'arrel com a derivat
                 word_dict[root].append(derived)
 
-    # Funció per afegir "l'" a paraules que comencen per vocal o h
-    def add_apostrophe(word):
-        if word[0] in 'aeiouhAEIOUH':
-            return f"l'{word}"
-        return None
-
-    # Funció per afegir "d'" a verbs en infinitiu, gerundi i participi
-    def add_d_apostrophe(word):
-        if word.endswith(('ar', 'er', 're', 'ir', 'nt', 't', 'da', 'ts', 'des')) and word[0] in 'aeiouhAEIOUH':
-            return f"d'{word}"
-        return None
-
-    # Funció per afegir "m'", "t'", "s'", "n'" a verbs flexionats
-    def add_pronoun_apostrophes(word):
-        if word[0] in 'aeiouhAEIOUH':
-            return [f"m'{word}", f"t'{word}", f"s'{word}", f"n'{word}"]
+    # Funció per afegir "l'" i "d'" a paraules que comencen per vocal o h
+    def add_apostrophes(word):
+        if word[0] in 'aeiouhàèéíòóú':
+            return [f"l'{word}", f"d'{word}"]
         return []
 
     # Funció per afegir "'m", "'t", "'l", "'s", "'n" a verbs que acaben en vocal
@@ -56,20 +44,13 @@ def process_text_to_csv(input_file, output_file):
         for root, derived_list in word_dict.items():
             derived_set = set(derived_list)
 
-            # Aplica "l'" a l'arrel i derivats si comencen per vocal o h
-            derived_set.update(filter(None, [add_apostrophe(word) for word in [root] + derived_list]))
+            # Aplica "l'" i "d'" a l'arrel i derivats si comencen per vocal o h
+            for word in [root] + derived_list:
+                derived_set.update(add_apostrophes(word))
 
-            # Si és verb (més de 10 derivats), aplica les regles addicionals
-            if len(derived_list) > 10:
-                derived_set.update(filter(None, [add_d_apostrophe(word) for word in derived_list]))
-
-                # Aplica "m'", "t'", "s'", "n'" a formes verbals flexionades
-                for word in derived_list:
-                    derived_set.update(add_pronoun_apostrophes(word))
-
-                # Aplica "'m", "'t", "'l", "'s", "'n" a verbs que acaben en vocal
-                for word in derived_list:
-                    derived_set.update(add_suffix_apostrophes(word))
+            # Aplica "'m", "'t", "'l", "'s", "'n" a verbs que acaben en vocal
+            for word in derived_list:
+                derived_set.update(add_suffix_apostrophes(word))
 
             # Escriu al fitxer CSV
             writer.writerow([root] + sorted(derived_set))
