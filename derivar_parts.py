@@ -36,7 +36,7 @@ def processa_html(html_path, arrels_flexions):
         f.write(html_output)
 
 # Llegeix el fitxer CSV
-csv_file = "morfologia.csv"  # Canvia-ho si el fitxer té un altre nom o ubicació
+csv_file = "morfologia_i_apostrofs.csv"  # Canvia-ho si el fitxer té un altre nom o ubicació
 arrels_flexions = {}
 with open(csv_file, newline="", encoding="utf-8") as f:
     reader = csv.reader(f)
@@ -65,4 +65,3 @@ for filename in os.listdir(html_folder):
         print(f"Processat: {html_path}")
 
 print("Processament complet!")
-
