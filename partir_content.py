@@ -93,4 +93,3 @@ def dividir_i_processar_diccionari(arxiu_entrada, carpeta_sortida, num_parts):
 
 # Exemple d'ús
 dividir_i_processar_diccionari('content.html', 'html_parts', 300)
-
