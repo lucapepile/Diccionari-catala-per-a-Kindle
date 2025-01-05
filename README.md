@@ -12,4 +12,4 @@ He creat tots els fitxers necessaris per poder exportar el diccionari a un forma
 
 Cal tindre el compte que els meus coneixements de programació són pràcticament nuls. Tot el codi ha estat escrit mitjançant IA. La meua feina, a base d'assaig error, ha consistit en ajustar-lo simplificant i ajustant al màxim les demandes al programador.    
 
-**Pots descarregar el diccionari des [d'aquesta pàgina](https://diccionaricatalakindle.wordpress.com/).**
+**Pots descarregar el diccionari _DIEC2.mobi_ des [d'aquesta pàgina](https://diccionaricatalakindle.wordpress.com/).** o també de la carpeta **resultats**.
